@@ -16,12 +16,12 @@ session_start();
 <body>
     <h1>Đăng Ký</h1>
 
-    <form action="register.php" method="post" id = "page">
+    <form action="register.php" method="post" id="page">
+
         <div>
             <label>New username:</label> <br>
             <input type="text" name="username"> <br>
         </div>
-
 
         <div>
             <label>New password:</label> <br>
@@ -31,8 +31,28 @@ session_start();
         </div>
 
         <div>
-            <label>Email:</label> <br>
-            <input type="email" name="email" placeholder="example@gmail.com"> <br>
+        <label>New teacher's name:</label> <br>
+        <input type="text" name="teacher_name"> <br>
+        </div>
+
+        <div>
+            <label>New teacher's email:</label> <br>
+            <input type="text" name="teacher_email"> <br>
+        </div>
+
+        <div>
+            <label>New teacher's class:</label> <br>
+            <input type="text" name="teacher_class"> <br>
+        </div>
+
+        <div>
+            <label>New teacher's ID:</label> <br>
+            <input type="text" name="teacher_ID"> <br>
+        </div>
+
+        <div>
+            <label>New teacher's phonenumber:</label> <br>
+            <input type="text" name="phone_num"> <br>
         </div>
 
         <div>
@@ -60,20 +80,26 @@ session_start();
 
 </html>
 <?php
-include("logindb.php");
-if ($connect) {
-    echo "ok";
-}
+include("registerDB.php");
 if (isset($_POST["register"])) {
     $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
     $repassword = filter_input(INPUT_POST, "repassword", FILTER_SANITIZE_SPECIAL_CHARS);
+    $teacher_name = filter_input(INPUT_POST, "teacher_name", FILTER_SANITIZE_SPECIAL_CHARS);
+    $teacher_email = filter_input(INPUT_POST, "teacher_email", FILTER_SANITIZE_SPECIAL_CHARS);
+    $teacher_class= filter_input(INPUT_POST, "teacher_class", FILTER_SANITIZE_SPECIAL_CHARS);
+    $teacher_ID = filter_input(INPUT_POST, "teacher_ID", FILTER_SANITIZE_SPECIAL_CHARS);
+    $phone_num= filter_input(INPUT_POST, "phone_num", FILTER_SANITIZE_SPECIAL_CHARS);   
     $hash = hash('sha256', $password);
 
-    if (empty($username) || empty($password) || empty($repassword)) {
-        echo '<span style="color:red;">Username or password is empty</span>';
+    if (empty($username) || empty($password) || empty($repassword) || empty($teacher_name) || 
+    empty($teacher_name) || empty($teacher_email) || empty($teacher_class) ||empty( $teacher_ID)|| 
+    empty($phone_num) ) {
+        echo '<span style="color:red;">Somthing is empty</span>';
     } elseif ($password == $repassword && $username != "admin") {
-        $sql = "INSERT INTO users (user, password) VALUES ('$username', '$hash')";
+        $sql = "INSERT INTO teachers (username, password, teacher_name, teacher_email, 
+        teacher_class, teacher_ID, phone_num)  VALUES ('$username', '$hash', '$teacher_name', 
+        '$teacher_email', '$teacher_class', '$teacher_ID', '$phone_num')";
         try {
             mysqli_query($connect, $sql);
             echo "Registed";
