@@ -14,9 +14,10 @@ setcookie("users", "user", time() + 3600, "/Website");
 </head>
 
 <body>
+<script src = "index.js" ></script>
     <h1>Đăng Nhập</h1>
 
-    <form action="login.php" method="post">
+    <form action="login.php" method="post" id ="registerpage">
         <label>username:</label> <br>
         <input type="text" name="username"> <br>
         <label>password:</label> <br>
@@ -33,7 +34,6 @@ setcookie("users", "user", time() + 3600, "/Website");
 <?php
 try{
 include("logindb.php");
-$connect = mysqli_connect("localhost", "root", "", "login");
 function check_cookie()
 {
 
@@ -43,14 +43,14 @@ function check_cookie()
         echo "You are not admin";
     }
 }
-if ($_COOKIE["users"] == "user") {
     if (isset($_POST["login"])) {
 
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
         $admin_pass = "!123@456!";
         $hash = password_hash($admin_pass, PASSWORD_DEFAULT);
-        $hash2 = hash('sha1',$password);
+        $hash2 = hash('sha256',$password);
+
         $sql = "SELECT * FROM users WHERE user='$username' AND password='$hash2' ";
         $result = mysqli_query($connect, $sql);       
 
@@ -65,13 +65,13 @@ if ($_COOKIE["users"] == "user") {
                 $_COOKIE["users"] = "admin";
                 if (check_cookie() == true) {
                     setcookie("users", "admin", time() + 3600, "/Website");
-                    $_SESSION["admin"] = "admin";
+                    $_SESSION[$_COOKIE["users"]] = "admin";
                     header("Location: home.php");
                 }
             }elseif (mysqli_num_rows($result) > 0){
                 $_SESSION["username"] = $username;
                 $_SESSION["password"] = $password;
-                $_SESSION["user"] = "user";
+                $_SESSION[$_COOKIE["users"]] = "user";
                 header("Location: home.php");
             }
              else
@@ -84,7 +84,7 @@ if ($_COOKIE["users"] == "user") {
     if(isset($_POST["register"])){
         header("Location: register.php");
     }
-}
+
 
     mysqli_close($connect);
 }
