@@ -3,8 +3,6 @@
 session_start();
 
 function end_Section(){
-
-
         session_destroy();
         header("Location: login.php");
 }
