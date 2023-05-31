@@ -123,9 +123,8 @@ $fruit = array(1 => "apple", 2 => "pearl", 3 => "orange", 5 => "pineaplle");
         <input type="submit" name="submit" value="submit">
         <br>
     </form> -->
-    <h2>Trang đăng nhập</h2>
-    <br>
-    <a href="login.php">login </a>
+
+    <script>src = "index.js" </script>
 </body>
 
 </html>
