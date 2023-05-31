@@ -1,6 +1,5 @@
 <?php
-include("footer.html");
-include("logindb.php") ;
+include("html/footer.html");
 echo "<br>";
 $name = "nghia";
 $age = 20;
