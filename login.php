@@ -11,22 +11,21 @@ setcookie("users", "user", time() + 3600, "/Website");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="login.css">
 </head>
 
 <body>
-    <!-- <script src = "index.js" ></script> -->
-    <h1>Đăng Nhập</h1>
-
-    <form action="login.php" method="post" id="registerpage">
-        <label>username:</label> <br>
-        <input type="text" name="username"> <br>
-        <label>password:</label> <br>
-        <input type="password" name="password"> <br>
-        <input type="submit" value="Log in" name="login"> <br>
-        Does not have an account <br>
-        Register here <br>
-        <input type="submit" value="Create account" name="register"> <br>
-    </form>
+    <div class="loginBox">
+        <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+        <h3>Đăng Nhập</h3>
+        <form action="login.php" method="post">
+            <div class="inputBox"> 
+                <input id="uname" type="text" name="username" placeholder="Username"> 
+                <input id="pass" type="password" name="password" placeholder="Password"> 
+            </div> 
+            <input type="submit" value="Log in" name="login"> <br>
+        </form>
+    </div>
 </body>
 
 </html>
@@ -67,7 +66,7 @@ try {
                 $_SESSION["password"] = $password;
 
                 $_COOKIE["users"] = "admin";
-                if (password_verify("admin",hash_cookie($_COOKIE["users"]))) {
+                if (password_verify("admin", hash_cookie($_COOKIE["users"]))) {
                     setcookie("users", "admin", time() + 3600, "/Website");
                     $_SESSION[$_COOKIE["users"]] = "admin";
                     header("Location: home.php");
@@ -77,7 +76,7 @@ try {
                 $_SESSION["password"] = $password;
                 $_COOKIE["users"] = "students";
 
-                if (password_verify("students",hash_cookie($_COOKIE["users"]))) {
+                if (password_verify("students", hash_cookie($_COOKIE["users"]))) {
                     setcookie("users", "students", time() + 3600, "/Website");
                     $_SESSION[$_COOKIE["users"]] = "students";
                     header("Location: home.php");
@@ -86,7 +85,7 @@ try {
                 $_SESSION["username"] = $username;
                 $_SESSION["password"] = $password;
                 $_COOKIE["users"] = "teachers";
-                if (password_verify("teachers",hash_cookie($_COOKIE["users"]))) {
+                if (password_verify("teachers", hash_cookie($_COOKIE["users"]))) {
                     setcookie("users", "teachers", time() + 3600, "/Website");
                     $_SESSION[$_COOKIE["users"]] = "teachers";
                     header("Location: home.php");
@@ -94,14 +93,7 @@ try {
             } else
                 echo '<span style="color:red;">Username or Password is invalid</span>';
         }
-    } else {
-        echo '<span style="color:red;">Please enter your username and password</span>';
     }
-    if (isset($_POST["register"])) {
-        header("Location: register.php");
-    }
-
-
     mysqli_close($connect);
 } catch (TypeError) {
     echo '<h1>There is an Error</h1>';
