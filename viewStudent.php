@@ -1,28 +1,33 @@
 <?php
 session_start();
 include("authentication.php");
-// Include the database connection file
 include("registerDB.php");
 
+if (isset($_GET['id'])) {
+    $id= htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8');
+    $query = "SELECT * FROM students WHERE id = ?";
+    $stmt = mysqli_prepare($connect, $query);
+    mysqli_stmt_bind_param($stmt, 's', $id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
 
-// Fetch data in descending order (lastest entry first)
-$result = mysqli_query($connect, "SELECT * FROM students ORDER BY id ASC");
+}
+
 ?>
 
-<html>
-<head>	
-	<title>Homepage</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
-
 <body>
-	<h1>Student List</h1>
-	<Button>
-	<a href="addStudent.php">Add New Data</a>
-	</Button>
-	<button>
+<button>
 	<a href="home.php">Home</a>
 	</button>	
-	<table width='80%' border=0>
+	<table width='80%' border=1>
 		<tr bgcolor='#DDDDDD'>
 			<td><strong>ID</strong></td>
 			<td><strong>Student's name</strong></td>
@@ -31,25 +36,21 @@ $result = mysqli_query($connect, "SELECT * FROM students ORDER BY id ASC");
 			<td><strong>Student's ID</strong></td>
 			<td><strong>Student's phone Number</strong></td>
 		</tr>
-		<?php
-
-		// Fetch the next row of a result set as an associative array
-		while ($res = mysqli_fetch_assoc($result)) {
-			echo "<tr>";
-			echo "<td>".$res['id']."</td>";
-			
-			echo "<td>".$res['student_name']."</td>";
-			echo "<td>".$res['student_email']."</td>";
-			echo "<td>".$res['student_class']."</td>";
-			echo "<td>".$res['student_ID']."</td>";
-            echo "<td>".$res['phone_num']."</td>";	
-			
-			echo "<td><a href=\"editStudent.php?id={$res['id']}\">Edit</a> | 
-			<a href=\"deleteStudent.php?id={$res['id']}\" onClick=\"return confirm
-			('Are you sure you want to delete?')\">Delete</a></td>";
-			
-		}
-		?>
-	</table>	 
+        <?php
+    if(empty($result)){
+        header("Location: studentList.php");
+    }
+// Fetch the next row of a result set as an associative array
+while ($user = mysqli_fetch_assoc($result)) {
+    echo "<tr>";
+    echo "<td>".$user['id']."</td>";    
+    echo "<td>".$user['student_name']."</td>";
+    echo "<td>".$user['student_email']."</td>";
+    echo "<td>".$user['student_class']."</td>";
+    echo "<td>".$user['student_ID']."</td>";
+    echo "<td>".$user['phone_num']."</td>";
+}
+    ?>
 </body>
 </html>
+
