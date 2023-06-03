@@ -11,7 +11,7 @@ setcookie("users", "user", time() + 3600, "/Website");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="CSS/login.css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@ setcookie("users", "user", time() + 3600, "/Website");
 
 <?php
 try {
-    include("registerDB.php");
+    include("Database/registerDB.php");
     function hash_cookie($check)
     {
 
