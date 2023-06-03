@@ -7,16 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="300">
     <title>Document</title>
-    <link rel="stylesheet" href="admin_home.css">
-    <link rel="stylesheet" href="solarSystem.css">
+    <link rel="stylesheet" href="CSS/admin_home.css">
+    <link rel="stylesheet" href="CSS/solarSystem.css">
 </head>
 
 <body>
 
-    <audio background src="music\past_lives.mp3"> </audio>
+    <audio background autoplay loop src="..\music\past_lives.mp3"> </audio>
     <form action="home.php" method="post">
+        <input id ="view_student" type="submit" name="viewStudent" value="View Student">
         <input id ="view_teacher" type="submit" name="view_teacher" value="View TEACHERS">
         <input id ="add_teacher" type="submit" name="add_teacher" value="ADD TEACHER">
+        <input id ="view-profile" type="submit" name="view-profile" value="View Profile">
         <input id ="log_out" type="submit" name="logout" value="Log out">
 
     </form>
