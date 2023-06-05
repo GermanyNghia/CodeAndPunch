@@ -13,7 +13,7 @@ function check_cookie()
 function end_Section()
 {
     session_destroy();
-    header("Location: login.php");
+    header("Location: login");
 }
 try {
 
@@ -49,14 +49,20 @@ if ($_SESSION[$_COOKIE["users"]] == "teachers") {
     if (isset($_POST["view-profile"])) {
         header("Location: Teacher/viewtTeacherProfile.php");
     }
+    if (isset($_POST["viewHomework"])) {
+        header("Location: Student_Teacher/ViewHWbyTeacher.php");
+    }
 } elseif ($_SESSION[$_COOKIE["users"]] == "students") {
     if (isset($_POST["view-profile"])) {
         header("Location: Student/viewtStudentProfile.php");
     }
+    if (isset($_POST["viewHomework"])) {
+        header("Location: Student/viewStudentChallenge.php");
+    }
 }
-if (isset($_POST["viewStudentChallenge"])) {
-    header("Location: Student/viewStudentChallenge.php");
-}
+
+
+
 
 
 if (isset($_POST["logout"])) {
