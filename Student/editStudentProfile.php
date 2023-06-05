@@ -61,10 +61,16 @@ if (isset($_POST['submit'])) {
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, 's', $id);
     mysqli_stmt_execute($stmt);
+    echo "Updated successfully"."<br>";
     if ($_SESSION[$_COOKIE["users"]] == "admin" || $_SESSION[$_COOKIE["users"]] == "teachers"){
-    header("Location: ../studentList.php");
+    header("Location: ../studentList.php");   
+    echo "<button>
+	<a href='../studentList.php'>Home</a>
+	</button>";
     }else{
-        header("Location: ../home.php");
+        echo "<button>
+	<a href='../home.php'>Home</a>
+	</button>";
     }
     mysqli_stmt_close($stmt);
 mysqli_close($connect);
