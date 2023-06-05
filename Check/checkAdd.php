@@ -2,15 +2,15 @@
 include("../Database/registerDB.php");
 
 
+
 // Prepare and execute query for students table
 $stmt = $connect->prepare("SELECT username FROM students WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
 $stmt->store_result();
-
 // Check if username already exists in students table
 if ($stmt->num_rows > 0) {
-  echo "Username already exists for a student";
+  echo "Username already exists";
   exit();
 }
 
@@ -22,7 +22,7 @@ $stmt->store_result();
 
 // Check if username already exists in teachers table
 if ($stmt->num_rows > 0) {
-  echo "Username already exists for a teacher";
+  echo "Username already exists";
   exit();
 }
 
