@@ -28,6 +28,7 @@ if (isset($student)) {
     <link rel="stylesheet" href="../CSS/default.css">
 </header>
 <h1>Edit Student </h1>
+<button><a href="../home.php"> Home</a></button>
     <form method="POST" action="editstudent.php?id=<?php echo $id; ?>">
     <label>Username:</label> <br>
     <input type="text" name="username" value="<?php echo $student['username']; ?>">
@@ -49,7 +50,7 @@ if (isset($student)) {
         <br>
         <label>Student's phone number:</label> <br>
         <input type="text" name="phone_num" value="<?php echo $student['phone_num']; ?>">
-        <br>
+        <br><br>
         <input type="submit" name="submit" value="Update">
     </form>
 <?php
@@ -67,18 +68,16 @@ if (isset($_POST['submit'])) {
 	$class = filter_input(INPUT_POST, "student_class", FILTER_SANITIZE_SPECIAL_CHARS);   
 	$ID = filter_input(INPUT_POST, "student_ID", FILTER_SANITIZE_SPECIAL_CHARS);   
     $phone = filter_input(INPUT_POST, "phone_num", FILTER_SANITIZE_SPECIAL_CHARS);
+    if($student['username'] != $username){
+        include("../Check/checkAdd.php");
+      }
+    
     $query = "UPDATE students SET username ='$username', password ='$hash', student_name='$name', student_email='$email', 
     student_class='$class', student_ID='$ID' ,phone_num='$phone' WHERE id = ?";
     $stmt = mysqli_prepare($connect, $query);
     mysqli_stmt_bind_param($stmt, 's', $id);
     mysqli_stmt_execute($stmt);
-    if ($_SESSION[$_COOKIE["users"]] == "admin" || $_SESSION[$_COOKIE["users"]] == "teachers"){
-        echo "Update successfully"."<br>";
-        echo "<button> <a href=../Student/studentList.php> BACK</a> </button> ";
-    }else{
-        echo "Update successfully"."<br>";
-        echo "<button> <a href=../home.php> BACK</a> </button> ";
-    }
+        header("Location: ../Student/studentList.php");
     mysqli_stmt_close($stmt);
 mysqli_close($connect);
 }
