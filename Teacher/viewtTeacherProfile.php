@@ -4,7 +4,6 @@ include("../Check/authentication.php");
 include("../Check/student_restrict.php");
 include("../Database/registerDB.php");
 
-
 if($_SESSION[$_COOKIE["users"]] == "admin"){
     $table = "admin";
 }elseif($_SESSION[$_COOKIE["users"]] == "teachers"){
@@ -51,20 +50,25 @@ if($_SESSION[$_COOKIE["users"]] == "admin"){
     }
 // Fetch the next row of a result set as an associative array
 while ($user = mysqli_fetch_assoc($result)) {
-    echo "<tr>";
-    echo "<td>".$user['id']."</td>";  
-    echo "<td>".$user['username']."</td>";
-    echo "<td>".$user['password']."</td>";
-    echo "<td>".$user['teacher_name']."</td>";
-    echo "<td>".$user['teacher_email']."</td>";
-    echo "<td>".$user['teacher_class']."</td>";
-    echo "<td>".$user['teacher_ID']."</td>";
-    echo "<td>".$user['phone_num']."</td>";
-    echo "<td><a href=\"editTeacher.php?id={$user['id']}\">Edit</a> </td>";
-    if ($_SESSION[$_COOKIE["users"]] == "admin"){
-        echo "<a href=\"deleteTeacher.php?id={$user['id']}\" onClick=\"return confirm
-        ('Are you sure you want to delete?')\">Delete</a></td>";
-    } 
+    try{
+        echo "<tr>";
+        echo "<td>".$user['id']."</td>";  
+        echo "<td>".$user['username']."</td>";
+        echo "<td>".$user['password']."</td>";
+        echo "<td>".$user['teacher_name']."</td>";
+        echo "<td>".$user['teacher_email']."</td>";
+        echo "<td>".$user['teacher_class']."</td>";
+        echo "<td>".$user['teacher_ID']."</td>";
+        echo "<td>".$user['phone_num']."</td>";
+        echo "<td><a href=\"editTeacher.php?id={$user['id']}\">Edit</a> </td>";
+        if ($_SESSION[$_COOKIE["users"]] == "admin"){
+            echo "<a href=\"deleteTeacher.php?id={$user['id']}\" onClick=\"return confirm
+            ('Are you sure you want to delete?')\">Delete</a></td>";
+        } 
+    }catch(Exception){
+        header("Location: ../../home.php");
+    }
+
 }
 mysqli_stmt_close($stmt);
 mysqli_close($connect);
