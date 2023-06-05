@@ -24,9 +24,9 @@
 
 <body>
     <h2>List of HomeWork</h2>
-    <p>
-        <a href="viewFileUpload.php">View your submission</a>
-    </p>
+    <button><a href="../home.php"> Home</a></button>
+    <button><a href="viewStudentFileUpload.php">View your submission</a></button>
+       
     <table>
         <thead>
             <tr>
@@ -38,11 +38,11 @@
         </thead>
         <tbody>
             <?php
-            $directory = "uploadByStudent/"; // Specify the directory path where the files are uploaded
+            $directory = "../Student_Teacher/uploadByTeacher/"; // Specify the directory path where the files are uploaded
             // Get the list of files in the directory
             $files = scandir($directory);
 
-            include("Database/userdb.php");
+            include("../Database/registerDB.php");
             // Get the list of files in the directory
             $result = mysqli_query($connect, "SELECT * FROM challenge ORDER BY challengeID ASC");
 
@@ -52,8 +52,9 @@
                     while ($res = mysqli_fetch_assoc($result)) {
                         echo "<td>" . $res['challengeID'] . "</td>";
                         echo "<td>" . $res['challengeName'] . "</td>";
-                        echo "<td><a href='$directory$file' target='_blank'>Download</a></td>";
-                        echo "<td><a href='studentFileUpload.php' target='_blank'>Add submission</a></td>";
+                        echo "<td><a href='$directory$res[challengeName]' download target='_blank'>
+                        Download</a></td>";
+                        echo "<td><a href='studentFileUpload.php?id=$res[challengeID]' target='_blank'>Add submission</a></td>";
                         echo "</tr>";
                     }
                 }
