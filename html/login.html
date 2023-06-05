@@ -6,22 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="CSS/login.css">
 </head>
 
 <body>
-<script src = "index.js" ></script>
-    <h1>Đăng Nhập</h1>
-
-    <form action="login.php" method="post" id ="registerpage">
-        <label>username:</label> <br>
-        <input type="text" name="username"> <br>
-        <label>password:</label> <br>
-        <input type="password" name="password"> <br>
-        <input type="submit" value="Log in" name="login"> <br> 
-        Does not have an account <br>
-        Register here <br>
-        <input type="submit" value="Create account" name="register"> <br>
-    </form>
+    <div class="loginBox">
+        <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+        <h3>Đăng Nhập</h3>
+        <form action="login.php" method="post">
+            <div class="inputBox"> 
+                <input id="uname" type="text" name="username" placeholder="Username"> 
+                <input id="pass" type="password" name="password" placeholder="Password"> 
+            </div> 
+            <input type="submit" value="Log in" name="login"> <br>
+        </form>
+    </div>
 </body>
 
 </html>
