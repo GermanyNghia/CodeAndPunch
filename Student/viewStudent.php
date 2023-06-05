@@ -28,6 +28,7 @@ if (isset($_GET['id'])) {
 <button>
 	<a href="../home.php">Home</a>
 	</button>	
+    <button onclick="history.back()">Back</button>
 	<table width='80%' border=1>
 		<tr bgcolor='#DDDDDD'>
 			<td><strong>ID</strong></td>
