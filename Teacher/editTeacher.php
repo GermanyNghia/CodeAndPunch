@@ -18,6 +18,7 @@ if (isset($_GET['id'])) {
 }
 
 // Display the form to edit the teacher's information
+try{
 if (isset($teacher)) {
 ?><header>
     <link rel="stylesheet" href="../CSS/default.css">
@@ -45,7 +46,9 @@ if (isset($teacher)) {
 }else{
     header("Location: ../home.php");
 }
-
+}catch(Exception){
+    header("Location: ../home.php");
+}
 // Handle form submission to update the teacher's information
 if (isset($_POST['submit'])) {
     $name = $_POST['teacher_name'];
