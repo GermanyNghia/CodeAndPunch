@@ -8,9 +8,6 @@
 
   <form method="POST" enctype="multipart/form-data">
 
-    <label for="challenge">Challenge:</label>
-    <input type="int" name="challenge" required><br>
-
     <label for="file">Select File:</label>
     <input type="file" name="file" required><br>
 
@@ -24,7 +21,6 @@
 session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Assuming you have a form field named 'student_id' to capture the student ID
-  $challengeId = $_POST['challenge'];
 
   // Process the uploaded file
   $fileName = $_FILES['file']['name'];
@@ -43,11 +39,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($fileError === 0) {
         if ($fileSize < 1000000) {
           $fileNameNew = uniqid('', true) . "." . $fileActualExt;
-          $fileDestination = 'uploads/' . $fileNameNew;
+          $fileDestination = 'uploadByTeacher/' . $fileName;
           move_uploaded_file($fileTmpName, $fileDestination);
           //SAVE FILE NAME TO DATABASE
           $conn = mysqli_connect("127.0.0.1", "root", "", "users");
-          $sql = "INSERT INTO challenge (challengeID,challengeName) VALUES ('$challengeId','$fileNameNew')";
+          $sql = "INSERT INTO challenge (challengeName) VALUES ('$fileName')";
           mysqli_query($conn, $sql);
           mysqli_close($conn);
           echo "File uploaded successfully for $fileName";
