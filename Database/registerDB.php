@@ -1,8 +1,8 @@
 <?php
 
     $db_server = "localhost";
-    $db_user = "root";
-    $db_pass = "";
+    $db_user = "admin";
+    $db_pass = "1234";
     $db_name = "users";
     $connect = "";
 
