@@ -1,6 +1,6 @@
 <?php
 
-    $db_server = "localhost";
+    $db_server = "EHCodeAndPunch";
     $db_user = "admin";
     $db_pass = "1234";
     $db_name = "users";
